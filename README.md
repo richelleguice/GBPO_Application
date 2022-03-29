@@ -1,3 +1,4 @@
+[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-f059dc9a6f8d3a56e377f745f24479a46679e63a5d9fe6f495e02850cd0d8118.svg)](https://classroom.github.com/online_ide?assignment_repo_id=7460854&assignment_repo_type=AssignmentRepo)
 67-272: GPBO Project - Phase 4
 ===
 We will continue our project to develop a foundation for the Baking Outlet system in this phase. We will focus our efforts on building out the controllers and views to make for an effective front end for our e-commerce platform. This is a test-driven phase -- we give you all the tests this time and your job is to pass these tests.  In this process, you will see how our testing suite can serve as documentation and help us define system requirements.
