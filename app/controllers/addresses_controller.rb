@@ -5,14 +5,15 @@ class AddressesController < ApplicationController
     authorize_resource
   
     def index
-      # finding all the active owners and paginating that list (will_paginate)
-      @active_addresses = Address.active.alphabetical.paginate(page: params[:page]).per_page(15)
+      # finding all the active addresses and paginating that list (will_paginate)
+      @active_addresses = Address.active.paginate(page: params[:page]).per_page(10)
+      @inactive_addresses = Address.inactive.paginate(page: params[:page]).per_page(15)
     end
   
     def show
       # authorize! :show, @owner
       # get all the pets for this owner
-      @current_addresses = @address.pets.alphabetical.active.to_a
+      @current_addresses = @address.active.to_s
     end
   
     def new
@@ -28,10 +29,10 @@ class AddressesController < ApplicationController
         @address.valid?
         render action: 'new'
       else
-        @address.user_id = @user.id
+        # @address.user_id = @user.id
         if @address.save
-          flash[:notice] = "Successfully created #{@address.by_recipient}."
-          redirect_to address_path(@address) 
+          flash[:notice] = "The address was added to #{@address.customer.proper_name}."
+          redirect_to customer_path(@address.customer) 
         else
           render action: 'new'
         end      
@@ -39,15 +40,13 @@ class AddressesController < ApplicationController
     end
   
     def update
-      respond_to do |format|
+      #respond_to do |format|
         if @address.update_attributes(address_params)
-          format.html { redirect_to(@address, :notice => "Successfully updated #{@address.proper_name}.") }
-          format.json { respond_with_bip(@address) }
+          redirect_to addresses_path, notice: "The address was edited."
         else
-          format.html { render :action => "edit" }
-          format.json { respond_with_bip(@address) }
+          render action: 'edit'
         end
-      end
+      #end
     end
   
     def destroy
