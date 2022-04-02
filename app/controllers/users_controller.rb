@@ -1,15 +1,18 @@
 class UsersController < ApplicationController
-    before_action :set_user, only: [:show, :edit, :update, :destroy]
-    before_action :check_login
+    before_action :set_user, only: [:edit, :update]
+    before_action :check_login, only: [:edit, :update]
     authorize_resource
   
     def index
       # finding all the active owners and paginating that list (will_paginate)
-      @users = User.all.paginate(page: params[:page]).per_page(15)
+      @employees = User.all.paginate(page: params[:page]).per_page(15)
     end
   
     def new
       @user = User.new
+    end
+
+    def show
     end
   
     def edit
@@ -20,7 +23,7 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       @user.role = "admin" if current_user.role?(:admin)
       if @user.save
-        flash[:notice] = "Successfully added #{@user.proper_name} as a user."
+        flash[:notice] = "Successfully added #{@user.username} as a user."
         redirect_to users_url
       else
         render action: 'new'
@@ -29,7 +32,7 @@ class UsersController < ApplicationController
   
     def update
       if @user.update_attributes(user_params)
-        flash[:notice] = "Successfully updated #{@user.proper_name}."
+        flash[:notice] = "Successfully updated #{@user.username}."
         redirect_to users_url
       else
         render action: 'edit'
@@ -37,12 +40,12 @@ class UsersController < ApplicationController
     end
   
     def destroy
-      if @user.destroy
-        redirect_to users_url, notice: "Successfully removed #{@user.proper_name} from the system."
-      ## There is no 'else' for now; we have no restrictions on user deletion (although we probably should)
-      # else
-      #   render action: 'show'
-      end
+    #   if @user.destroy
+    #     redirect_to users_url, notice: "Successfully removed #{@user.username} from the system."
+    #   ## There is no 'else' for now; we have no restrictions on user deletion (although we probably should)
+    #   # else
+    #   #   render action: 'show'
+    #   end
     end
   
     private
