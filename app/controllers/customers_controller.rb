@@ -1,22 +1,18 @@
 class CustomersController < ApplicationController
     # A callback to set up an @owner object to work with 
     before_action :set_customer, only: [:show, :edit, :update, :destroy]
-    before_action :check_login
+    before_action :check_login, only: [:show, :edit, :update, :destroy]
     authorize_resource
   
     def index
       # finding all the active owners and paginating that list (will_paginate)
       @active_customers = Customer.active.alphabetical.paginate(page: params[:page]).per_page(10)
+      @inactive_customers = Customer.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
     end
   
     def show
-      
-      # authorize! :show, @owner
-      # get all the pets for this owner
-      #show current active addresses and prev orders
-    #   @current_pets = @customer.pets.alphabetical.active.to_a
-      #active addresses, use by_recipient, .active
-      #prev orders: .orders, chronological order
+      @addresses = @customer.addresses.by_recipient.active
+      @previous_orders = @customer.orders.chronological
     end
   
     def new
@@ -37,7 +33,7 @@ class CustomersController < ApplicationController
       else
         @customer.user_id = @user.id
         if @customer.save
-          flash[:notice] = "Successfully created #{@customer.proper_name}."
+          flash[:notice] = "#{@customer.proper_name} was added to the system."
           redirect_to customer_path(@customer) 
         else
           render action: 'new'

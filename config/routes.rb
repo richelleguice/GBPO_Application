@@ -24,7 +24,8 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: :logout
 
   # Routes
-  # post 'sessions', to: 'sessions#create', as: :sessions
+  resources :customers
+  resources :addresses
 
 
 end
