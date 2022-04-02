@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
     # A callback to set up an @owner object to work with 
-    before_action :set_item, only: [:show, :edit, :update, :destroy]
+    before_action :set_item, only: [:show, :edit, :update, :destroy, :toggle_active, :toggle_feature]
     before_action :check_login
     authorize_resource
   
@@ -12,10 +12,11 @@ class ItemsController < ApplicationController
     end
   
     def show
-      #authorize! :show, @user.role if admin
-      # get all the pets for this owner
-      @prices = @item.item_prices.to_a
-      @similar_items = Item.for_category(@item.category).to_a - (self)
+      if logged_in? && (current_user.role?(:admin))
+        @prices = @item.item_prices.to_a
+      end
+      
+      @similar_items = Item.for_category(@item.category).active.to_a - [@item]
     end
   
     def new
@@ -49,31 +50,34 @@ class ItemsController < ApplicationController
     end
   
     def destroy
-      ## We don't allow destroy (will deactivate instead)
       if @item.destroy
-        # irrelevant now...
-        # redirect_to owners_url, notice: "Successfully removed #{@owner.proper_name} from the PATS system."
+        item = nil
+        redirect_to items_url, notice: "Destroyed!"
       else
-        # we still want this path with the base error message shown
-        # @current_pet = @owner.pets.alphabetical.active.to_a
-        render action: 'show'
+        redirect_back fallback_location: item_path(@item)
       end
     end
 
-    def toggleActive
-        if self.active?
-            self.update_attribute(:active, true)
+    def toggle_active
+        if @item.active?
+            @item.update_attribute(:active, false)
+            flash[:notice] = "#{@item.name} was made inactive"
         else
-            self.update_attribute(:active, false)
+            @item.update_attribute(:active, true)
+            flash[:notice] = "#{@item.name} was made active"
         end
+        redirect_to home_path
     end
 
-    def toggleFeature
-        if self.featured?
-            self.update_attribute(:featured, false)
+    def toggle_feature
+        if @item.is_featured
+            @item.update_attribute(:is_featured, false)
+            flash[:notice] = "#{@item.name} is no longer featured"
         else
-            self.update_attribute(:featured, true)
+            @item.update_attribute(:is_featured, true) 
+            flash[:notice] = "#{@item.name} is now featured"
         end
+        redirect_to home_path
     end
   
     private

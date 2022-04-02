@@ -29,8 +29,8 @@ Rails.application.routes.draw do
   resources :categories, except: [:show, :destroy]
   resources :items
 
-  patch 'items/:id/toggle_active', to: 'items#toggleActive', as: :toggle_active
-  patch 'items/:id/toggle_feature', to: 'items#toggleFeature', as: :toggle_feature
+  patch 'items/:id/toggle_active', to: 'items#toggle_active', as: :toggle_active
+  patch 'items/:id/toggle_feature', to: 'items#toggle_feature', as: :toggle_feature
 
 
 

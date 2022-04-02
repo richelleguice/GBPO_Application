@@ -8,15 +8,6 @@ class CategoriesController < ApplicationController
       # get data on all pets and paginate the output to 10 per page
       @active_categories = Category.active.paginate(page: params[:page]).per_page(10)
       @inactive_categories = Category.inactive.paginate(page: params[:page]).per_page(10)
-      
-    #   if current_user.role?(:owner)
-    #     @active_pets = current_user.owner.pets.active.alphabetical.paginate(page: params[:page]).per_page(10)
-    #     @inactive_pets = current_user.owner.pets.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
-    #   else
-    #     @active_pets = Pet.active.alphabetical.paginate(page: params[:page]).per_page(10)
-    #     @inactive_pets = Pet.inactive.alphabetical.paginate(page: params[:page]).per_page(10)
-    #   end
-  
     end
   
     # def show
