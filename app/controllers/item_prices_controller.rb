@@ -1,26 +1,10 @@
 class ItemPricesController < ApplicationController
-    # A callback to set up an @owner object to work with 
-    before_action :set_itemPrices
     before_action :check_login
     authorize_resource
   
-    # def index
-    #   # finding all the active owners and paginating that list (will_paginate)
-    #   @categories = Category.all.paginate(page: params[:page]).per_page(10)
-    #   @featured_items = Item.featured.to_a
-    #   @other_items = Item.all.to_a - @featured_items
-    # end
-  
-    # def show
-    #   if logged_in? && (current_user.role?(:admin))
-    #     @prices = @item.item_prices.to_a
-    #   end
-      
-    #   @similar_items = Item.for_category(@item.category).active.to_a - [@item]
-    # end
-  
     def new
-      @item = Item.new
+      @itemPrice = ItemPrice.new
+      @item = Item.find(params[:item_id])
     end
   
     def edit
@@ -30,8 +14,8 @@ class ItemPricesController < ApplicationController
       @itemPrice = ItemPrice.new(itemPrice_params)
         # @item.user_id = @item.id
         if @itemPrice.save
-          flash[:notice] = "#{@item.name} was added to the system."
-          redirect_to item_path(@item) 
+          flash[:notice] = "Successfully updated the price."
+          redirect_to item_path(@itemPrice.item) 
         else
           render action: 'new'
         end      
@@ -64,11 +48,7 @@ class ItemPricesController < ApplicationController
       end
   
       def itemPrice_params
-        params.require(:itemPrice).permit(:category_id, :name, :description, :color, :weight, :inventory_level, :reorder_level, :is_featured, :active)
-      end
-  
-      def user_params      
-        params.require(:itemPrice).permit(:category_id, :name, :description, :color, :weight, :inventory_level, :reorder_level, :is_featured, :active)
+        params.require(:item_price).permit(:item_id, :price)
       end
   
 end

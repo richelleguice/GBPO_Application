@@ -29,6 +29,10 @@ Rails.application.routes.draw do
   resources :categories, except: [:show, :destroy]
   resources :items
   resources :orders
+  
+  get 'item_prices/new', to: 'item_prices#new', as: :new_item_price
+  post 'item_prices/create', to: 'item_prices#create', as: :item_prices
+
 
   patch 'items/:id/toggle_active', to: 'items#toggle_active', as: :toggle_active
   patch 'items/:id/toggle_feature', to: 'items#toggle_feature', as: :toggle_feature
