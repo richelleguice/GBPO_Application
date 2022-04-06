@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   # just show a flash message instead of full CanCan exception
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:error] = "You are not authorized to take this action.  Go away or I shall taunt you a second time."
+    flash[:error] = "You are not authorized to perform this action."
     redirect_to home_path
   end
 
