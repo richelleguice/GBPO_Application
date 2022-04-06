@@ -41,7 +41,7 @@ module AppHelpers
         order_item = OrderItem.new(info)
         total += order_item.subtotal
       end
-      total
+      total 
     end
 
     def get_list_of_items_in_cart

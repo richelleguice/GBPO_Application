@@ -21,6 +21,10 @@ class ItemPricesController < ApplicationController
         end      
     end
   
+    def checkout
+      
+    end
+
     def update
       respond_to do |format|
         if @item.update_attributes(item_params)
@@ -32,15 +36,6 @@ class ItemPricesController < ApplicationController
         end
       end
     end
-  
-    # def destroy
-    #   if @item.destroy
-    #     item = nil
-    #     redirect_to items_url, notice: "Destroyed!"
-    #   else
-    #     redirect_back fallback_location: item_path(@item)
-    #   end
-    # end
   
     private
       def set_itemPrices

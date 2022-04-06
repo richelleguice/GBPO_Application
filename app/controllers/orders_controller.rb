@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
         clear_cart
         redirect_to order_path(@order), notice: "Thank you for ordering from GPBO."
       else
-        redirect_to :checkout
+        redirect_to :order_checkout
       end
     end
   
@@ -55,23 +55,6 @@ class OrdersController < ApplicationController
             redirect_to checkout_path()
         end
     end
-    # def update
-    #   if @category.update_attributes(category_params)
-    #     redirect_to categories_path, notice: "Updated #{@category.name}'s information"
-    #   else
-    #     render action: 'edit'
-    #   end
-    # end
-  
-    # def destroy
-    #   ## Same as owners
-    #   if @pet.destroy
-    #     # redirect_to pets_path, notice: "Removed #{@pet.name} from the PATS system"
-    #   else
-    #     @recent_visits = @pet.visits.chronological.last(10).to_a
-    #     render action: 'show'
-    #   end
-    # end
   
     private
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -10,5 +10,8 @@ class HomeController < ApplicationController
   
     def privacy
     end
+
+    def search
+    end
     
 end

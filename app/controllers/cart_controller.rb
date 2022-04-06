@@ -1,61 +1,48 @@
 class CartController < ApplicationController
-    # A callback to set up an @pet object to work with 
-    before_action :set_category, only: [:edit, :update]
+    include AppHelpers::Cart
+    include AppHelpers::Shipping
+    include ApplicationHelper
+
     before_action :check_login
-    authorize_resource
-  
-    def index
-      # get data on all pets and paginate the output to 10 per page
-      @active_categories = Category.active.paginate(page: params[:page]).per_page(10)
-      @inactive_categories = Category.inactive.paginate(page: params[:page]).per_page(10)
-    end
   
     def show
-      @recent_visits = @pet.visits.chronological.last(10).to_a
+      @items_in_cart = get_list_of_items_in_cart
+      @subtotal = calculate_cart_items_cost
+      @shipping_cost = calculate_cart_shipping
+      @total = @shipping_cost + @subtotal
+
+    #   redirect_to view_cart_path(@cart)
+    end
+
+    def checkout 
+        @items_in_cart = get_list_of_items_in_cart
+        @subtotal = calculate_cart_items_cost
+        @shipping_cost = calculate_cart_shipping
+        @total = @shipping_cost + @subtotal
+        @addresses = get_address_options(current_user)
+        @order = Order.new
+
+    #   redirect_to :checkout
     end
   
-    def new
-      @category = Category.new
+    def add_item
+        add_item_to_cart(params[:id])
+        @item = Item.find(params[:id])
+        flash[:notice] = "#{@item.name} was added to cart."
+        redirect_back fallback_location: home_path 
     end
-  
-    def edit
+
+    def remove_item
+        remove_item_from_cart(params[:id])
+        @item = Item.find(params[:id])
+        flash[:notice] = "#{@item.name} was removed from cart."
+        redirect_to view_cart_path
     end
-  
-    def create
-      @category = Category.new(category_params)
-      if @category.save
-        redirect_to categories_path, notice: "Successfully added #{@category.name} to the system."
-      else
-        render action: 'new'
-      end
-    end
-  
-    def update
-      if @category.update_attributes(category_params)
-        redirect_to categories_path, notice: "Updated #{@category.name}'s information"
-      else
-        render action: 'edit'
-      end
-    end
-  
-    # def destroy
-    #   ## Same as owners
-    #   if @pet.destroy
-    #     # redirect_to pets_path, notice: "Removed #{@pet.name} from the PATS system"
-    #   else
-    #     @recent_visits = @pet.visits.chronological.last(10).to_a
-    #     render action: 'show'
-    #   end
-    # end
-  
-    private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_category
-      @category = Category.find(params[:id])
-    end
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def category_params
-      params.require(:category).permit(:name, :active)
+
+    def empty_cart
+        clear_cart
+        flash[:notice] = "Cart is emptied."
+        redirect_to view_cart_path
     end
   
 end

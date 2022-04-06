@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   get 'home/about', to: 'home#about', as: :about
   get 'home/contact', to: 'home#contact', as: :contact
   get 'home/privacy', to: 'home#privacy', as: :privacy
-  get 'home/search', to: 'home#search', as: :search
 
   # Authentication routes
   resources :sessions
@@ -30,6 +29,14 @@ Rails.application.routes.draw do
   resources :items
   resources :orders
   
+
+  # cart/view, cart/checkout, cart/:id/addItem, cart/:id/removeItem, cart/emptyCart
+  get 'cart/show', to: 'cart#show', as: :view_cart
+  get 'cart/checkout', to: 'cart#checkout', as: :checkout
+  get 'cart/:id/add_item', to: 'cart#add_item', as: :add_item
+  get 'cart/:id/remove_item', to: 'cart#remove_item', as: :remove_item
+  get 'cart/empty_cart', to: 'cart#empty_cart', as: :empty_cart
+  
   get 'item_prices/new', to: 'item_prices#new', as: :new_item_price
   post 'item_prices/create', to: 'item_prices#create', as: :item_prices
 
@@ -37,8 +44,9 @@ Rails.application.routes.draw do
   patch 'items/:id/toggle_active', to: 'items#toggle_active', as: :toggle_active
   patch 'items/:id/toggle_feature', to: 'items#toggle_feature', as: :toggle_feature
 
-  patch 'cart/checkout', to: 'cart#checkout', as: :checkout
+  patch 'cart/checkout', to: 'cart#checkout', as: :order_checkout
 
+  get 'search', to: 'search#search', as: :search
 
 
 end
