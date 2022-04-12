@@ -44,6 +44,8 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'cancancan', '3.1.0'   # '3.1.0'
 
+gem 'nokogiri', '1.13.3'
+
 # View gems
 gem 'will_paginate'
 gem 'simple_form', '5.1.0'

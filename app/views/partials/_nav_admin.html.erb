@@ -1,0 +1,28 @@
+<nav id="nav">
+  <div class="container">
+    <ul class="left hide-on-med-and-down">
+        <li><%= link_to 'Contact', contact_path %></li>
+        <li><%= link_to 'About', about_path %></li>
+        <li><%= link_to 'Privacy', privacy_path %></li>
+    </ul> 
+    <ul class="items">
+        <li><%= link_to 'Featured Items at GPBO', items_path %></li>
+    </ul> 
+
+     <ul class="customers">
+        <li><%= link_to 'Active Customers in GPBO', items_path %></li>
+    </ul> 
+
+    <ul class="orders">
+        <li><%= link_to 'Orders', orders_path %></li>
+    </ul> 
+
+    <ul class="employees">
+        <li><%= link_to 'Employees at GPBO', users_path %></li>
+    </ul> 
+      
+    <ul class="right">
+      <li><%= link_to 'Logout', logout_path %></li>
+    </ul>
+  </div>
+</nav>
