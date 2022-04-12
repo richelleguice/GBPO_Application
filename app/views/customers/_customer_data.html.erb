@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="card-content">
+
+    <h5>Name <%= @customer.proper_name %></h5><br/>
+
+    <h5>Email <%= @customer.email %></h5><br/>
+
+    <h5>Addresses on file</h5>
+
+    <% for address in @addresses%>
+        <h5>Address <%= address.street_1 %></h5><br/>
+        <h5>Address <%= address.recipient %></h5><br/>
+        <h5>Address <%= address.city%>, <%= address.state%>  <%= address.zip%></h5><br/>
+        
+    <% end %>
+
+    <h5>Phone <%= number_to_phone @customer.phone %></h5><br/>
+
+    <h5>A GPBO customer since <%= @customer.created_at.year %></h5><br/>
+
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title"><%= @customer.first_name %>'s Pets</span>
+    <% if @previous_orders.empty? %>
+      <p>No pets at this time</p>
+    <% else %>
+      <table class="striped highlight">
+        <thead>
+          <th>Order History</th>
+          <th>Date</th>
+          <th>Amount</th>
+        </thead>
+        <% for order in @previous_orders%>
+          <tr>
+            <td><%= link_to order.date.strftime('%m/%d/%y'), order_path(order.id) %></td>
+            <td><%= number_to_currency(order.grand_total, :unit => "$")%></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+</div>
