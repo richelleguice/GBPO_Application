@@ -1,0 +1,28 @@
+<h1>Find by Category</h1>
+<h5><%= link_to "All", items_path %></h5>
+<%= render :partial => "partials/find_by_category", locals: {title: "Find By Category"} %>
+
+<% if !@category.nil? %>
+    <thead>
+      <th>Featured Items at GPBO</th>
+    </thead>
+    <%= render :partial => "items_list", locals: {items: @category.items.featured} %>
+    <thead>
+      <th>Other Items at GPBO</th>
+    </thead>
+    <%= render :partial => "items_list", locals: {items: @category.items.where(is_featured: false)} %>
+<% else %>
+    <%= render :partial => "items_list", locals: {items: @featured_items} %>
+     <thead>
+      <th>Other Items at GPBO</th>
+    </thead>
+    <%= render :partial => "items_list", locals: {items: @other_items} %>
+
+
+
+<% end %>
+
+
+
+
+

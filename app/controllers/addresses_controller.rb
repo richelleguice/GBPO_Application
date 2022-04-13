@@ -25,17 +25,12 @@ class AddressesController < ApplicationController
   
     def create
       @address = Address.new(address_params)
-      if !@address.save
-        @address.valid?
-        render action: 'new'
+      if @address.save
+        flash[:notice] = "The address was added to #{@address.customer.proper_name}."
+        redirect_to customer_path(@address.customer)
       else
         # @address.user_id = @user.id
-        if @address.save
-          flash[:notice] = "The address was added to #{@address.customer.proper_name}."
-          redirect_to customer_path(@address.customer) 
-        else
-          render action: 'new'
-        end      
+        render action: 'new' 
       end
     end
   
@@ -49,28 +44,12 @@ class AddressesController < ApplicationController
       #end
     end
   
-    def destroy
-      ## We don't allow destroy (will deactivate instead)
-      if @address.destroy
-        # irrelevant now...
-        # redirect_to owners_url, notice: "Successfully removed #{@owner.proper_name} from the PATS system."
-      else
-        # we still want this path with the base error message shown
-        @current_pets = @address.by_recipient.alphabetical.active.to_a
-        render action: 'show'
-      end
-    end
-  
     private
       def set_address
         @address = Address.find(params[:id])
       end
   
       def address_params
-        params.require(:address).permit(:customer_id, :is_billing, :recipient, :street_1, :city, :state, :zip, :active, :username)
-      end
-  
-      def user_params      
         params.require(:address).permit(:customer_id, :is_billing, :recipient, :street_1, :city, :state, :zip, :active, :username)
       end
   

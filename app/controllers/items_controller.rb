@@ -1,14 +1,19 @@
 class ItemsController < ApplicationController
     # A callback to set up an @owner object to work with 
     before_action :set_item, only: [:show, :edit, :update, :destroy, :toggle_active, :toggle_feature]
-    before_action :check_login
+    before_action :check_login, except: [:index, :show]
     authorize_resource
   
     def index
-      # finding all the active owners and paginating that list (will_paginate)
       @categories = Category.all.paginate(page: params[:page]).per_page(10)
-      @featured_items = Item.featured.to_a
-      @other_items = Item.all.to_a - @featured_items
+      if(params[:category])
+        @category = Category.find(params[:category])
+        @featured_items = Item.featured.for_category(@category).to_a
+        @other_items = Item.for_category(@category).to_a - @featured_items
+      else 
+        @featured_items = Item.featured.to_a
+        @other_items = Item.active.all.to_a - @featured_items
+      end
     end
   
     def show
@@ -86,10 +91,6 @@ class ItemsController < ApplicationController
       end
   
       def item_params
-        params.require(:item).permit(:category_id, :name, :description, :color, :weight, :inventory_level, :reorder_level, :is_featured, :active)
-      end
-  
-      def user_params      
         params.require(:item).permit(:category_id, :name, :description, :color, :weight, :inventory_level, :reorder_level, :is_featured, :active)
       end
   

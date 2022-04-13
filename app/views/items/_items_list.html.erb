@@ -1,0 +1,37 @@
+<h4>Items at GPBO</h4>
+
+<% if items.empty? %>
+  <p>There are no featured items in that category at this time.</p>
+<% else %>
+
+  <table class="striped highlight">
+    <thead>
+      <th>Name</th>
+      <th>Price</th>
+      <th class="align_center">Options</th>
+    </thead>
+    <% for item in items %>
+      <tr class="<%= cycle('dg_list_line_odd', 'dg_list_line_even') %>">
+        <td><%= link_to item.name, item_path(item) %></td>
+        <td><%= number_to_currency(item.current_retail_price) %></td>
+        <%# <td><%= link_to pet.owner.name, owner_path(pet.owner) %></td> %>
+
+      <td class="align_center">
+        <% if can? :edit, item %>
+          <%= link_to edit_item_path(item) do %>
+                <i class="material-icons">edit</i>
+            <% end %>
+            &nbsp;&nbsp;&nbsp;&nbsp; 
+          <% end %>
+          <% if can? :destroy, item %>
+            <%= link_to(item_path(item), method: :delete, data: { confirm: 'Are you sure you wish to delete this information?' }) do %>
+                <i class="material-icons">delete</i>
+            <% end %>
+          <% end %>
+      </td>
+      </tr>
+    <% end %>
+  </table>
+  <p class="supertiny"></p>
+  <br />
+<% end %>

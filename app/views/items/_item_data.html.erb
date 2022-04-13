@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-content">
+
+    <h5>Name <%= link_to "#{@item.name}", items_path(category:@category) %></h5><br/>
+
+    <h5><%= @item.description %></h5><br/>
+
+
+    <h5>Color: <%= @item.color %></h5><br/>
+
+    <h5>Weight: <%= @item.weight %> lbs</h5><br/>
+
+    <h5>Current Price: <%= number_to_currency(@item.current_retail_price) %></h5><br/>
+
+    <h5>Similar Items: <%= @similar_items %></h5><br/>
+
+    
+
+  </div>

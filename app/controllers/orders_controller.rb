@@ -21,10 +21,6 @@ class OrdersController < ApplicationController
       @order_items =  @order.order_items.alphabetical
     end
   
-    def new
-      @order = Order.new
-    end
-  
     def edit
     end
   
@@ -45,15 +41,6 @@ class OrdersController < ApplicationController
       else
         redirect_to :order_checkout
       end
-    end
-  
-    def checkout
-        unless Order.credit_card_number_is_valid?
-            redirect_to checkout_path()
-        end
-        unless Order.expiration_date_is_valid?
-            redirect_to checkout_path()
-        end
     end
   
     private

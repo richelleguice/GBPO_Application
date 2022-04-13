@@ -22,26 +22,9 @@ class ItemPricesController < ApplicationController
     end
   
     def checkout
-      
-    end
-
-    def update
-      respond_to do |format|
-        if @item.update_attributes(item_params)
-          format.html { redirect_to(@item, :notice => "Successfully updated the price #{@itemPrice.name}.") }
-          format.json { respond_with_bip(@item) }
-        else
-          format.html { render :action => "edit" }
-          format.json { respond_with_bip(@item) }
-        end
-      end
     end
   
     private
-      def set_itemPrices
-        @itemPrice = ItemPrice.find(params[:id])
-      end
-  
       def itemPrice_params
         params.require(:item_price).permit(:item_id, :price)
       end
