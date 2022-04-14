@@ -1,5 +1,6 @@
 <% if @active_customers.empty? %>
   <h4>No active customers at this time.</h4>
+
 <% else %>
   <%= render :partial => "partials/title_with_search", locals: {title: "Active Customers in GPBO"} %>
   <table class="striped highlight">
@@ -29,6 +30,7 @@
   <br />
   <%= will_paginate @active_customers, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
 <% end %>
+
 <p>&nbsp;</p>
 
 <p><strong>
@@ -37,6 +39,7 @@
 
 <% if @inactive_customers.empty? %>
   <h4>No inactive customers at this time.</h4>
+
 <% else %>
   <%= render :partial => "partials/title_with_search", locals: {title: "Inactive Customers in GPBO"} %>
   <table class="striped highlight">
@@ -66,4 +69,5 @@
   <br />
   <%= will_paginate @inactive_customers, previous_label: "Previous&nbsp;", next_label: "&nbsp;Next" %>
 <% end %>
+
 <p>&nbsp;</p>

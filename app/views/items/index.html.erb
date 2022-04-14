@@ -11,15 +11,13 @@
       <th>Other Items at GPBO</th>
     </thead>
     <%= render :partial => "items_list", locals: {items: @category.items.where(is_featured: false)} %>
+
 <% else %>
     <%= render :partial => "items_list", locals: {items: @featured_items} %>
      <thead>
       <th>Other Items at GPBO</th>
     </thead>
     <%= render :partial => "items_list", locals: {items: @other_items} %>
-
-
-
 <% end %>
 
 
