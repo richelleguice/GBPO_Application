@@ -5,7 +5,6 @@
 
     <h5><%= @item.description %></h5><br/>
 
-
     <h5>Color: <%= @item.color %></h5><br/>
 
     <h5>Weight: <%= @item.weight %> lbs</h5><br/>
@@ -13,6 +12,22 @@
     <h5>Current Price: <%= number_to_currency(@item.current_retail_price) %></h5><br/>
 
     <h5>Similar Items: <%= @similar_items %></h5><br/>
+
+    <% if logged_in? && (current_user.role?(:admin)) %>
+      <% for price in @prices %>
+          <h5>Price History <%= price.price %></h5><br/>
+      <% end %>
+    <% end %>
+
+    <h5>Price <%= @item.item_prices %></h5><br/>
+
+    <h5>Date <%= @item.item_prices.start_date %></h5><br/>
+
+    <h5><%= link_to "Make Featured", toggle_feature_path(@item.id), method: :patch %></h5><br/>
+    <h5><%= link_to "Stop Featured", toggle_feature_path(@item.id), method: :patch %></h5><br/>
+
+
+
 
   </div>
 </div>

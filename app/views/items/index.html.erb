@@ -1,6 +1,6 @@
-<h1>Find by Category</h1>
+<h4>Find by Category</h4>
 <h5><%= link_to "All", items_path %></h5>
-<%= render :partial => "partials/find_by_category", locals: {title: "Find By Category"} %>
+  <%= render :partial => "partials/find_by_category", locals: {title: "Find By Category"} %>
 
 <% if !@category.nil? %>
     <thead>
@@ -15,6 +15,7 @@
 <% else %>
     <%= render :partial => "items_list", locals: {items: @featured_items} %>
      <thead>
+     <%# need to figure out this heading bc it keeps reading as "Items at GPBO" %>
       <th>Other Items at GPBO</th>
     </thead>
     <%= render :partial => "items_list", locals: {items: @other_items} %>
