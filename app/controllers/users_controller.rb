@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   
     def create
       @user = User.new(user_params)
-      @user.role = "admin" if current_user.role?(:admin)
+      @user.role = "customer" unless current_user.role?(:admin)
       if @user.save
         flash[:notice] = "Successfully added #{@user.username} as a user."
         redirect_to users_url
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
       end
   
       def user_params
-        params.require(:user).permit(:first_name, :last_name, :active, :username, :role, :password, :password_confirmation)
+        params.require(:user).permit(:username, :role, :password, :password_confirmation, :active)
       end
   
 end

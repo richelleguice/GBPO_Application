@@ -35,7 +35,7 @@
 
     <h5><%= link_to "Add to Cart", add_item_path(@item.id), method: :get %></h5><br/>
 
-    <h5><%= link_to "View Cart(#{@items_in_cart})", view_cart_path(@item.id), method: :get %></h5><br/>
+    <h5><%= link_to "View Cart(#{session[:cart].size})", view_cart_path(@item.id), method: :get %></h5><br/>
 
     <h5><%= link_to "Add a New Price", new_item_price_path(@item.id), method: :get %></h5><br/>
 

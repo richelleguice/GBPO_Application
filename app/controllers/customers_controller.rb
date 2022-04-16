@@ -1,7 +1,7 @@
 class CustomersController < ApplicationController
     # A callback to set up an @owner object to work with 
     before_action :set_customer, only: [:show, :edit, :update, :destroy]
-    before_action :check_login, only: [:show, :edit, :update, :destroy]
+    before_action :check_login, except: [:new, :create]
     authorize_resource
   
     def index
@@ -33,6 +33,7 @@ class CustomersController < ApplicationController
       else
         @customer.user_id = @user.id
         if @customer.save
+          session[:user_id] = @user.id
           flash[:notice] = "#{@customer.proper_name} was added to the system."
           redirect_to customer_path(@customer) 
         else
@@ -71,7 +72,7 @@ class CustomersController < ApplicationController
       end
   
       def customer_params
-        params.require(:customer).permit(:first_name, :last_name, :street, :city, :state, :zip, :phone, :email, :active, :username, :password, :password_confirmation)
+        params.require(:customer).permit(:first_name, :last_name, :phone, :email, :active, :username, :password, :password_confirmation, :role, :greeting, :active)
       end
   
       def user_params      
