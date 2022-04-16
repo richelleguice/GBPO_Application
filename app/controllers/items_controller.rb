@@ -65,13 +65,15 @@ class ItemsController < ApplicationController
 
     def toggle_active
         if @item.active?
-            @item.update_attribute(:active, false)
+            # @item.update_attribute(:active, false)
+            @item.make_inactive
             flash[:notice] = "#{@item.name} was made inactive"
         else
-            @item.update_attribute(:active, true)
+            @item.make_active
+            # @item.update_attribute(:active, true)
             flash[:notice] = "#{@item.name} was made active"
         end
-        redirect_to home_path
+        redirect_back fallback_location: home_path
     end
 
     def toggle_feature
@@ -82,7 +84,7 @@ class ItemsController < ApplicationController
             @item.update_attribute(:is_featured, true) 
             flash[:notice] = "#{@item.name} is now featured"
         end
-        redirect_to home_path
+        redirect_back fallback_location: home_path
     end
   
     private

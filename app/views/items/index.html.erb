@@ -2,6 +2,10 @@
 <h5><%= link_to "All", items_path %></h5>
   <%= render :partial => "partials/find_by_category", locals: {title: "Find By Category"} %>
 
+<p><strong>
+<%= link_to "Add a New Item", new_item_path, class: 'waves-effect waves-light btn' %> 
+</strong></p>
+
 <% if !@category.nil? %>
     <thead>
       <th>Featured Items at GPBO</th>

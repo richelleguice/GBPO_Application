@@ -15,6 +15,8 @@
 
     <h5>Phone <%= number_to_phone @customer.phone %></h5><br/>
 
+    <h5>Active <%= @customer.active? %></h5><br/>
+
     <h5>A GPBO customer since <%= @customer.created_at.year %></h5><br/>
 
   </div>

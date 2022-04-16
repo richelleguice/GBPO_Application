@@ -14,17 +14,34 @@
     <h5>Similar Items: <%= @similar_items %></h5><br/>
 
     <% if logged_in? && (current_user.role?(:admin)) %>
+      <h3>Price History </h3>
       <% for price in @prices %>
-          <h5>Price History <%= price.price %></h5><br/>
+          <h5><%= price.price %></h5><br/>
+          <h5>Date <%= price.start_date %></h5><br/>
       <% end %>
     <% end %>
 
-    <h5>Price <%= @item.item_prices %></h5><br/>
+    <% if @item.is_featured? %>
+      <h5><%= link_to "Stop Featured", toggle_feature_path(@item.id), method: :patch %></h5><br/> 
+    <% else %>
+      <h5><%= link_to "Make Featured", toggle_feature_path(@item.id), method: :patch %></h5><br/>
+    <% end %>
 
-    <h5>Date <%= @item.item_prices.start_date %></h5><br/>
+    <% if @item.active? %>
+      <h5><%= link_to "Make Inactive", toggle_active_path(@item.id), method: :patch %></h5><br/>
+    <% else %>
+      <h5><%= link_to "Make Active", toggle_active_path(@item.id), method: :patch %></h5><br/>
+    <% end %>
 
-    <h5><%= link_to "Make Featured", toggle_feature_path(@item.id), method: :patch %></h5><br/>
-    <h5><%= link_to "Stop Featured", toggle_feature_path(@item.id), method: :patch %></h5><br/>
+    <h5><%= link_to "Add to Cart", add_item_path(@item.id), method: :get %></h5><br/>
+
+    <h5><%= link_to "View Cart(#{@items_in_cart})", view_cart_path(@item.id), method: :get %></h5><br/>
+
+    <h5><%= link_to "Add a New Price", new_item_price_path(@item.id), method: :get %></h5><br/>
+
+    <h5>Inventory Level: <%= @item.inventory_level %></h5><br/>
+
+    <h5>Reorder Level: <%= @item.reorder_level %></h5><br/>
 
 
 
