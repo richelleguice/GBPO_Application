@@ -17,7 +17,6 @@ Feature: Customer Sign-Up
     And I fill in "customer_password_confirmation" with "secret"
     And I fill in "customer_greeting" with "Ed!"
     And I press "Create Customer"
-    Then show me the page
     Then I should see "Ed Gruberman"
     And I should see "Active: Yes"
     And I should see "A GPBO customer since 2022" 

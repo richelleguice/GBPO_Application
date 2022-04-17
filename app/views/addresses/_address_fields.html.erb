@@ -1,0 +1,8 @@
+<%= f.input :recipient, label_html: { class: 'avg' } %>
+<%= f.input :street_1, label_html: { class: 'avg' } %>
+<%= f.input :street_2, label_html: { class: 'avg' } %>
+<%= f.input :city, label_html: { class: 'avg' } %>
+<%= f.input :state, collection: Address::STATES_LIST, label_html: { class: 'avg' } %>
+<%= f.input :zip, label_html: { class: 'avg' } %>
+<%= f.hidden_field :customer_id, :value => current_user.customer.id %>
+<%= f.input :active %>

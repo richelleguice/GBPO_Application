@@ -15,15 +15,11 @@
 
     <h5>Phone <%= number_to_phone @customer.phone %></h5><br/>
 
-    <h5>Active <%= @customer.active? %></h5><br/>
-
     <% if @customer.active? %>
         <h5>Active: Yes</h5><br/>
     <% else %>
         <h5>Active: No</h5><br/>
     <% end %>
-
-    
 
     <h5>A GPBO customer since <%= @customer.created_at.year %></h5><br/>
 
