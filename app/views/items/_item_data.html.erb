@@ -13,13 +13,16 @@
 
     <h5>Similar Items: <%= @similar_items %></h5><br/>
 
-    <% if logged_in? && (current_user.role?(:admin)) %>
-      <h3>Price History </h3>
-      <% for price in @prices %>
-          <h5><%= price.price %></h5><br/>
-          <h5>Date <%= price.start_date %></h5><br/>
+    <% unless @prices.empty? %>
+      <% if logged_in? && (current_user.role?(:admin)) %>
+        <h3>Price History </h3>
+        <% for price in @prices %>
+            <h5><%= price.price %></h5><br/>
+            <h5>Date <%= price.start_date %></h5><br/>
+        <% end %>
       <% end %>
     <% end %>
+
 
     <% if @item.is_featured? %>
       <h5><%= link_to "Stop Featured", toggle_feature_path(@item.id), method: :patch %></h5><br/> 
@@ -42,8 +45,6 @@
     <h5>Inventory Level: <%= @item.inventory_level %></h5><br/>
 
     <h5>Reorder Level: <%= @item.reorder_level %></h5><br/>
-
-
 
 
   </div>

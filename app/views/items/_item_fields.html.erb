@@ -1,0 +1,10 @@
+<%= f.input :name, label_html: { class: 'avg' } %>
+<%= f.input :category_id, collection: Category.alphabetical.active.to_a, include_blank: true %>
+<%= f.input :description, label_html: { class: 'avg' } %>
+<%= f.input :weight, label_html: { class: 'avg' } %>
+<%= f.input :color, label_html: { class: 'avg' } %>
+<%= f.input :inventory_level, label_html: { class: 'avg' } %>
+<%= f.input :reorder_level, label_html: { class: 'avg' } %>
+
+<%# <%= f.hidden_field :customer_id, :value => current_user.customer.id %> 
+<%= f.input :active %>
