@@ -3,7 +3,7 @@ class ItemPricesController < ApplicationController
     authorize_resource
   
     def new
-      @itemPrice = ItemPrice.new
+      @item_price = ItemPrice.new
       @item = Item.find(params[:item_id])
     end
   
