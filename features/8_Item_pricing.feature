@@ -10,7 +10,6 @@ Feature: Add New Prices
   Scenario: Adding new price to item
     When I go to the Baking Sheet details
     And I click on the link "Add a New Price"
-    Then show me the page
     Then I should see "New price for GPBO Baking Sheet"
     And I should see "Current price: $5.95"
     And I should see "Enter new price"
