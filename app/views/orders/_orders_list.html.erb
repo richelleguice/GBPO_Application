@@ -1,0 +1,82 @@
+<h4>Orders at GPBO</h4>
+
+<% if current_user.present? && current_user.role?(:customer) %>
+    <h3 class="center-align">All Orders</h3>
+        <% if @all_orders.empty? %>
+            <p>No orders</p>
+
+        <% else %>
+            <table class="striped highlight">
+            <thead>
+                <th>Date</th>
+                <th>Recipient</th>
+                <th>Item Count</th>
+                <th>Cost</th>
+            </thead>
+
+            <% for order in @all_orders %>
+                <tr>
+                    <td><%= link_to order.date.strftime('%m/%d/%y'), order_path(order.id) %></td>
+                    <td><%= order.address.recipient %></td>
+                    <td><%= order.order_items.all.length %></td>
+                    <td><%= number_to_currency(order.grand_total, :unit => "$") %></td>
+                </tr>
+            <% end %>
+            </table>
+        <% end %>
+<% end %>
+
+<% if current_user.present? && current_user.role?(:admin) %>
+    <h3 class="center-align">Pending Orders</h3>
+        <% if @pending_orders.empty? %>
+            <p>No pending orders</p>
+
+        <% else %>
+            <table class="striped highlight">
+            <thead>
+                <%# <th>Customer</th> %>
+                <th>Date</th>
+                <th>Recipient</th>
+                <th>Item Count</th>
+                <th>Cost</th>
+            </thead>
+
+            <% for order in @pending_orders %>
+                <tr>
+                    <td><%= link_to order.date.strftime('%m/%d/%y'), order_path(order.id) %></td>
+                    <td><%= link_to order.address.recipient, customer_path(order.customer) %></td>
+                    <td><%= order.order_items.all.length %></td>
+                    <td><%= number_to_currency(order.grand_total, :unit => "$") %></td>
+                </tr>
+            <% end %>
+            </table>
+        <% end %>
+<% end %>
+
+<% if current_user.present? && current_user.role?(:admin) %>
+    <h3 class="center-align">Past Orders</h3>
+        <% if @past_orders.empty? %>
+            <p>No past orders</p>
+
+        <% else %>
+            <table class="striped highlight">
+            <thead>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Recipient</th>
+                <th>Item Count</th>
+                <th>Cost</th>
+            </thead>
+
+            <% for order in @past_orders %>
+                <tr>
+                    <td><%= order.address.customer.name %></td>
+                    <td><%= link_to order.date.strftime('%m/%d/%y'), order_path(order.id) %></td>
+                    <td><%= link_to order.address.recipient, customer_path(order.customer) %></td>
+                    <td><%= order.order_items.all.length %></td>
+                    <td><%= number_to_currency(order.grand_total, :unit => "$") %></td>
+                </tr>
+            <% end %>
+            </table>
+        <% end %>
+<% end %>

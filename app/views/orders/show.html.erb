@@ -1,20 +1,5 @@
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">Orders</span>
-
-      <table class="striped highlight">
-        <thead>
-          <th>Customer: <%=@order.customer.proper_name %></th>
-          <th>Recipient: <%=@order.address.recipient %></th>
-          <th>Grand Total: $<%=@order.grand_total %></th>
-        </thead>
-        <% for order in @previous_orders %>
-          <tr>
-            <td><%= link_to order.date, order_path(order) %></td>
-            <td>Date: <%= link_to order.date.strftime('%B %e, %Y'), order_path(order) %></td>
-          </tr>
-        <% end %>
-      </table>
-
-  </div>
-</div>
+<%= render partial: "partials/structure2", locals: {model_name: "order", 
+                                                         object: @order,
+                                                         primary: "order_data", 
+                                                         secondary: nil,
+                                                         sidebar: nil} %>

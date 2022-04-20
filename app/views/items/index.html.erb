@@ -3,7 +3,9 @@
   <%= render :partial => "partials/find_by_category", locals: {title: "Find By Category"} %>
 
 <p><strong>
+<% if can? :create, :item %>
 <%= link_to "Add a New Item", new_item_path, class: 'waves-effect waves-light btn' %> 
+<% end %>
 </strong></p>
 
 <% if !@category.nil? %>

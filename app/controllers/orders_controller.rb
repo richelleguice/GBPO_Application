@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
   
     def show
       @order = Order.find(params[:id])
-      @previous_orders = @order.customer.orders.chronological.to_a - [@corder]
+      @previous_orders = @order.customer.orders.chronological.to_a - [@order]
       @order_items =  @order.order_items.alphabetical
     end
   

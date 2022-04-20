@@ -1,0 +1,34 @@
+<div class="card">
+  <div class="card-content">
+
+    <h5>Order Details <%= link_to "#{@order.address.recipient}", orders_path(@order) %></h5><br/>
+
+    <h5>Date: <%= @order.date.strftime('%B %e, %Y') %></h5><br/>
+
+    <h5>Customer: <%= @order.address.customer.proper_name %></h5><br/>
+    <h5>Recipient: <%= @order.address.recipient %></h5><br/>
+
+    <h5>Order Cost Breakdown</h5><br/>
+    <h6>Product Subtotal: <%= number_to_currency(@order.products_total) %></h6><br/>
+    <h6>Shipping <%= number_to_currency(@order.shipping) %></h6><br/>
+    <h6>Grand Total: <%= number_to_currency(@order.grand_total)%></h6><br/>
+
+    <h5>Previous Orders</h5><br/>
+    <% for order in @previous_orders%>
+        <h6><%= link_to order.date.strftime('%m/%d/%y'), order_path(order.id) %></h6>
+
+        <h6>Item Count</h6>
+        <% if @order.order_items.count == 1%>
+            <h6><%= "#{@order.order_items.count} Item" %></h6>
+        <% else %>
+            <h6><%= "#{@order.order_items.count} Items" %></h6>
+        <% end %>
+    <% end %>
+
+    <% for orderItem in @order.order_items %>
+        <h6><%= link_to orderItem.item.name, item_path(orderItem.item_id)  %></h6> 
+        <h6>Quantity <%= orderItem.quantity %></h6>
+    <% end %>
+
+  </div>
+</div>

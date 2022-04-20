@@ -1,22 +1,5 @@
-<% if logged_in? && (current_user.role?(:admin)) %>
-    <h3>Pending Orders </h3>
-        <% for order in @pending_orders %>
-            <h5>Date <%= order.date %></h5><br/>
-            <h5>Recipient <%= order.address.recipient %></h5><br/>
-        <% end %>
-    <h3>Past Orders </h3>
-        <% for order in @past_orders %>
-            <h5>Date <%= order.date %></h5><br/>
-            <h5>Recipient <%= order.address.recipient %></h5><br/>
-        <% end %>
-
-<% else %>
-
-    <h3>All Orders </h3>
-        <% for order in @all_orders %>
-            <h5>Date <%= order.date %></h5><br/>
-            <h5>Recipient <%= order.address.recipient %></h5><br/>
-        <% end %>
-
-<% end %>
-
+<%= render partial: "partials/structure1", locals: {model_name: "order", 
+                                                         object: @order,
+                                                         primary: "orders_list", 
+                                                         secondary: nil,
+                                                         sidebar: nil} %>

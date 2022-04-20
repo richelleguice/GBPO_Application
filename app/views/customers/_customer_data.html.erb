@@ -5,12 +5,12 @@
 
     <h5>Email <%= @customer.email %></h5><br/>
 
-    <h5>Addresses on file</h5>
+    <h5>Address Information</h5>
 
     <% for address in @addresses%>
-        <h5>Address <%= address.street_1 %></h5><br/>
-        <h5>Address <%= address.recipient %></h5><br/>
-        <h5>Address <%= address.city%>, <%= address.state%>  <%= address.zip%></h5><br/>
+        <h5>Recipient: <%= address.recipient %></h5><br/>
+        <h5><%= address.street_1 %></h5><br/>
+        <h5><%= address.city%>, <%= address.state%>  <%= address.zip%></h5><br/>
     <% end %>
 
     <h5>Phone <%= number_to_phone @customer.phone %></h5><br/>
