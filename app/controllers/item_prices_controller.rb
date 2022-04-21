@@ -11,22 +11,22 @@ class ItemPricesController < ApplicationController
     end
   
     def create
-      @itemPrice = ItemPrice.new(itemPrice_params)
+      @item_price = ItemPrice.new(itemPrice_params)
+      @item_price.start_date = Date.current
         # @item.user_id = @item.id
-        if @itemPrice.save
+        if @item_price.save
           flash[:notice] = "Successfully updated the price."
-          redirect_to item_path(@itemPrice.item) 
+          redirect_to item_path(@item_price.item) 
         else
+          @item = Item.find(params[:item_price][:item_id])
           render action: 'new'
         end      
     end
-  
-    def checkout
-    end
+
   
     private
       def itemPrice_params
-        params.require(:item_price).permit(:item_id, :price)
+        params.require(:item_price).permit(:item_id, :price, :start_date, :end_date)
       end
   
 end
