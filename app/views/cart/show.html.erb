@@ -1,7 +1,28 @@
 <h2>Your Cart</h2>
+<% for cartItem in @items_in_cart %>
+    <h6><%= link_to cartItem.item.name, item_path(cartItem.item_id)  %></h6> 
+    <h6>Unit Price: <%= number_to_currency(cartItem.item.current_retail_price)  %></h6> 
+    
+    <h6>Quantity: <%= cartItem.quantity %></h6>
 
+    <h6>Subtotal: <%= number_to_currency(cartItem.subtotal) %></h6>  
+
+    <h6><%= link_to "Remove", remove_item_path(cartItem.item_id) %></h6><br/>
+
+<% end %>
+
+<h6>Subtotal: <%= number_to_currency(@subtotal) %></h6>  
+<h6>Shipping: <%= number_to_currency(@shipping_cost) %></h6>  
+<h6>Grand Total: <%= number_to_currency(@total) %></h6><br/>
 
 <h5><%= link_to "Checkout", checkout_path(), method: :get %></h5><br/>
 
+<% if @items_in_cart.empty? %>
+    <h6>Your cart is currently empty.</h6><br/>
+    <h5><%= link_to "Start shopping", items_path(), method: :get %></h5><br/>
+<% else %>
+    <h5><%= link_to "Continue shopping", items_path(), method: :get %></h5><br/>
+<% end %>
 
+<h5><%= link_to "Empty cart", empty_cart_path(), method: :get %></h5><br/>
 
