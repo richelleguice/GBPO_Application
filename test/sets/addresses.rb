@@ -1,4 +1,4 @@
-module Contexts
+Emodule Contexts
   module Addresses
     # Context for addresses (assumes customer and user context)
     def create_addresses

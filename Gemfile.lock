@@ -184,6 +184,7 @@ GEM
       ruby-progressbar
     msgpack (1.4.4)
     multi_test (0.1.2)
+    mysql2 (0.5.4)
     nio4r (2.5.8)
     nokogiri (1.13.3-arm64-darwin)
       racc (~> 1.4)
@@ -331,6 +332,7 @@ DEPENDENCIES
   materialize-sass (= 1.0.0)
   minitest-rails (= 3.0.0)
   minitest-reporters (= 1.1.19)
+  mysql2 (>= 0.4.4, < 0.6.0)
   nokogiri (= 1.13.3)
   populator (= 1.0.0)
   puma (~> 3.11)
